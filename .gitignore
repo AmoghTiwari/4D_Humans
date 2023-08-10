@@ -1,3 +1,5 @@
+# Custom Additions
+demo_out/*
 # Specific
 /logs*/
 /results/
