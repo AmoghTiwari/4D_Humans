@@ -1,4 +1,4 @@
-name: 4D-humans
+name: 4D_humans_env
 channels:
   - pytorch
   - nvidia
