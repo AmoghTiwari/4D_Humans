@@ -5,6 +5,7 @@ import argparse
 import os
 import cv2
 import numpy as np
+import joblib
 
 from hmr2.configs import CACHE_DIR_4DHUMANS
 from hmr2.models import HMR2, download_models, load_hmr2, DEFAULT_CHECKPOINT
@@ -20,6 +21,7 @@ def main():
     parser.add_argument('--img_folder', type=str, default='example_data/images', help='Folder with input images')
     parser.add_argument('--out_folder', type=str, default='demo_out', help='Output folder to save rendered results')
     parser.add_argument('--side_view', dest='side_view', action='store_true', default=False, help='If set, render side view also')
+    parser.add_argument('--save_pkl', action='store_true', default=False, help='Dump results to a pkl file also')
     parser.add_argument('--full_frame', dest='full_frame', action='store_true', default=False, help='If set, render all people together also')
     parser.add_argument('--save_mesh', dest='save_mesh', action='store_true', default=False, help='If set, save meshes to disk also')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size for inference/fitting')
@@ -62,6 +64,8 @@ def main():
         det_out = detector(img_cv2)
 
         det_instances = det_out['instances']
+        if args.save_pkl:
+            joblib.dump(det_instances, os.path.join(args.out_folder, "det_instances.pkl"))
         valid_idx = (det_instances.pred_classes==0) & (det_instances.scores > 0.5)
         boxes=det_instances.pred_boxes.tensor[valid_idx].cpu().numpy()
 
@@ -76,13 +80,15 @@ def main():
             batch = recursive_to(batch, device)
             with torch.no_grad():
                 out = model(batch)
-
             pred_cam = out['pred_cam']
             box_center = batch["box_center"].float()
             box_size = batch["box_size"].float()
             img_size = batch["img_size"].float()
             scaled_focal_length = model_cfg.EXTRA.FOCAL_LENGTH / model_cfg.MODEL.IMAGE_SIZE * img_size.max()
             pred_cam_t_full = cam_crop_to_full(pred_cam, box_center, box_size, img_size, scaled_focal_length).detach().cpu().numpy()
+            if args.save_pkl:
+                joblib.dump(out, os.path.join(args.out_folder, "out.pkl"))
+                joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, "cam.pkl"))
 
             # Render the result
             batch_size = batch['img'].shape[0]
@@ -125,7 +131,7 @@ def main():
                     camera_translation = cam_t.copy()
                     tmesh = renderer.vertices_to_trimesh(verts, camera_translation, LIGHT_BLUE)
                     tmesh.export(os.path.join(args.out_folder, f'{img_fn}_{person_id}.obj'))
-
+                
         # Render front view
         if args.full_frame and len(all_verts) > 0:
             misc_args = dict(
