@@ -64,8 +64,6 @@ def main():
         det_out = detector(img_cv2)
 
         det_instances = det_out['instances']
-        if args.save_pkl:
-            joblib.dump(det_instances, os.path.join(args.out_folder, "det_instances.pkl"))
         valid_idx = (det_instances.pred_classes==0) & (det_instances.scores > 0.5)
         boxes=det_instances.pred_boxes.tensor[valid_idx].cpu().numpy()
 
@@ -84,11 +82,13 @@ def main():
             box_center = batch["box_center"].float()
             box_size = batch["box_size"].float()
             img_size = batch["img_size"].float()
+            img_name =  "_".join(img_path.split("/")[-1].split(".")[:-1])
             scaled_focal_length = model_cfg.EXTRA.FOCAL_LENGTH / model_cfg.MODEL.IMAGE_SIZE * img_size.max()
             pred_cam_t_full = cam_crop_to_full(pred_cam, box_center, box_size, img_size, scaled_focal_length).detach().cpu().numpy()
             if args.save_pkl:
-                joblib.dump(out, os.path.join(args.out_folder, "out.pkl"))
-                joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, "cam.pkl"))
+                joblib.dump(out, os.path.join(args.out_folder, f"{img_name}_out.pkl"))
+                joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, f"{img_name}_cam.pkl"))
+                joblib.dump(det_instances, os.path.join(args.out_folder, f"{img_name}_det_instances.pkl"))
 
             # Render the result
             batch_size = batch['img'].shape[0]
