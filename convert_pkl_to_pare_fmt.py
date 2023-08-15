@@ -16,7 +16,7 @@ for _4dh_pkl_paths in glob(f"{input_dir}/*out.pkl"):
     _4dh_out = joblib.load(_4dh_pkl_paths)
     # _4dh_cam = joblib.load(_4dh_pkl_paths.replace("out.pkl", "cam.pkl"))
     
-    concat_v1 = np.concatenate((_4dh_out['pred_smpl_params']['global_orient'].cpu().numpy(), _4dh_out['pred_smpl_params']['body_pose'].cpu().numpy()), axis=1)
+    # concat_v1 = np.concatenate((_4dh_out['pred_smpl_params']['global_orient'].cpu().numpy(), _4dh_out['pred_smpl_params']['body_pose'].cpu().numpy()), axis=1)
     concat_v2 = np.concatenate((_4dh_out['pred_smpl_params']['body_pose'].cpu().numpy(), _4dh_out['pred_smpl_params']['global_orient'].cpu().numpy()), axis=1)
     pare_fmt['pred_pose'] = concat_v2
     pare_fmt['pred_cam'] = _4dh_out['pred_cam'].cpu().numpy()
