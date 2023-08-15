@@ -1,0 +1,35 @@
+4D Humans
+
+1 pred_cam
+type <class 'torch.Tensor'>
+shape torch.Size([1, 3])
+dtype torch.float32
+
+2 pred_smpl_params
+type <class 'dict'>
+
+3 pred_cam_t
+type <class 'torch.Tensor'>
+shape torch.Size([1, 3])
+dtype torch.float32
+
+4 focal_length
+type <class 'torch.Tensor'>
+shape torch.Size([1, 2])
+dtype torch.float32
+
+5 pred_keypoints_3d
+type <class 'torch.Tensor'>
+shape torch.Size([1, 44, 3])
+dtype torch.float32
+
+6 pred_vertices
+type <class 'torch.Tensor'>
+shape torch.Size([1, 6890, 3])
+dtype torch.float32
+
+7 pred_keypoints_2d
+type <class 'torch.Tensor'>
+shape torch.Size([1, 44, 2])
+dtype torch.float32
+
