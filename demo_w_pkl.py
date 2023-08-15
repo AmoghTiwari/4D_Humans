@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--side_view', dest='side_view', action='store_true', default=False, help='If set, render side view also')
     parser.add_argument('--save_pkl', action='store_true', default=False, help='Dump results to a pkl file also')
     parser.add_argument('--full_frame', dest='full_frame', action='store_true', default=False, help='If set, render all people together also')
+    parser.add_argument('--show_vis', action='store_true', default=False, help='If set, show visualizations, else no.')
     parser.add_argument('--save_mesh', dest='save_mesh', action='store_true', default=False, help='If set, save meshes to disk also')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size for inference/fitting')
 
@@ -88,7 +89,7 @@ def main():
             if args.save_pkl:
                 joblib.dump(out, os.path.join(args.out_folder, f"{img_name}_out.pkl"))
                 joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, f"{img_name}_cam.pkl"))
-                joblib.dump(det_instances, os.path.join(args.out_folder, f"{img_name}_det_instances.pkl"))
+                # joblib.dump(det_instances, os.path.join(args.out_folder, f"{img_name}_det_instances.pkl"))
 
             # Render the result
             batch_size = batch['img'].shape[0]
@@ -117,8 +118,9 @@ def main():
                     final_img = np.concatenate([input_patch, regression_img, side_img], axis=1)
                 else:
                     final_img = np.concatenate([input_patch, regression_img], axis=1)
-
-                cv2.imwrite(os.path.join(args.out_folder, f'{img_fn}_{person_id}.png'), 255*final_img[:, :, ::-1])
+                
+                if args.show_vis:
+                    cv2.imwrite(os.path.join(args.out_folder, f'{img_fn}_{person_id}.png'), 255*final_img[:, :, ::-1])
 
                 # Add all verts and cams to list
                 verts = out['pred_vertices'][n].detach().cpu().numpy()
