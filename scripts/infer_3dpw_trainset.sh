@@ -11,7 +11,7 @@ cd ../
 for seq_name in courtyard_bodyScannerMotions_00; 
     do
        echo $img_dir/$seq_name
-       python demo.py --img_folder $img_dir/$seq_name --out_folder outputs/3DPW/train/$seq_name --batch_size=48 --save_pkl
+       python demo_w_pkl.py --img_folder $img_dir/$seq_name --out_folder outputs/3DPW/train/$seq_name --batch_size=48 --save_pkl
        echo
        echo
     done
