@@ -142,17 +142,20 @@ class Tracker:
         bboxes = mot.detect(image_folder)
         return bboxes
 
-input_image_folder =  "example_data/sample_images"
+if __name__ == "__main__":
+    input_image_folder =  "example_data/images2"
+    output_image_folder = "outputs2/example_data/images2/w_yolo"
 
-tracker = Tracker()
-detections = tracker.run_detector(image_folder=input_image_folder)
+    tracker = Tracker()
+    detections = tracker.run_detector(image_folder=input_image_folder)
 
-for idx,img_path in enumerate(sorted(os.listdir(input_image_folder))):
-    img_fp = os.path.join(input_image_folder, img_path)
-    img = cv2.imread(img_fp)
-    img_annot = img.copy()
+    for idx,img_fn in enumerate(sorted(os.listdir(input_image_folder))):
+        img_fp = os.path.join(input_image_folder, img_fn)
+        img = cv2.imread(img_fp)
+        img_annot = img.copy()
 
-    for detection in detections[idx]:
-        x,y,w,h = np.round(detection).astype('int')
-        img_annot = cv2.rectangle(img_annot, (x,y,x+w,y+h), (0,0,255),2)
-    cv2.imwrite("bbox_img.png", img_annot)
+        for detection in detections[idx]:
+            x,y,w,h = np.round(detection).astype('int')
+            img_annot = cv2.rectangle(img_annot, (x,y,x+w,y+h), (0,0,255),2)
+        # cv2.imwrite(os.path.join(output_image_folder, img_fn), img_annot)
+        np.save(os.path.join(output_image_folder, "_".join(img_fn.split(".")[:-1])+".npy"), detections[idx])
