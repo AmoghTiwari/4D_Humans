@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 from glob import glob
 
-def pkl_reformat_4dh_to_pare(_4dh_pkl):
+def reformat_pkl_4dh_to_pare(_4dh_pkl):
     """ Change format of pkl from 4DHumans pkl to PARE"""
     pare_fmt_pkl = {}
     pare_fmt_pkl['pred_pose'] = np.concatenate((_4dh_pkl['pred_smpl_params']['body_pose'].cpu().numpy(), _4dh_pkl['pred_smpl_params']['global_orient'].cpu().numpy()), axis=1)
