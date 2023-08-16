@@ -26,5 +26,5 @@ if __name__ == "__main__":
         pkl_fn = "_".join(_4dh_pkl_paths.split("/")[-1].split(".")[:-1])
         _4dh_out = joblib.load(_4dh_pkl_paths)
 
-        pare_fmt_pkl = change_format(_4dh_out)
+        pare_fmt_pkl = reformat_pkl_4dh_to_pare(_4dh_out)
         joblib.dump(pare_fmt_pkl, os.path.join(args.output_dir, pkl_fn + ".pkl"))
