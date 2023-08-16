@@ -12,7 +12,7 @@ from hmr2.models import HMR2, download_models, load_hmr2, DEFAULT_CHECKPOINT
 from hmr2.utils import recursive_to
 from hmr2.datasets.vitdet_dataset import ViTDetDataset, DEFAULT_MEAN, DEFAULT_STD
 from hmr2.utils.renderer import Renderer, cam_crop_to_full
-from utils.reformat_pkl import reformat_pkl_4dh_to_pare
+from utils.reformat_pkl_4dh_to_pare import reformat_pkl_4dh_to_pare
 
 LIGHT_BLUE=(0.65098039,  0.74117647,  0.85882353)
 
@@ -89,10 +89,11 @@ def main():
             pred_cam_t_full = cam_crop_to_full(pred_cam, box_center, box_size, img_size, scaled_focal_length).detach().cpu().numpy()
             if args.save_pkl:
                 joblib.dump(out, os.path.join(args.out_folder, f"{img_name}_out.pkl"))
-                joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, f"{img_name}_cam.pkl"))
+                # joblib.dump(pred_cam_t_full, os.path.join(args.out_folder, f"{img_name}_cam.pkl"))
                 # joblib.dump(det_instances, os.path.join(args.out_folder, f"{img_name}_det_instances.pkl"))
                 pare_fmt = reformat_pkl_4dh_to_pare(out)
-                joblib.dump(pare_fmt, os.path.join(args.out_folder, f"{img_name}_pare_fmt.pkl"))
+                pare_fmt['orig_cam'] = pred_cam_t_full
+                joblib.dump(pare_fmt, os.path.join(args.out_folder, f"{img_name}_pare_fmt_v02.pkl"))
 
             # Render the result
             batch_size = batch['img'].shape[0]
