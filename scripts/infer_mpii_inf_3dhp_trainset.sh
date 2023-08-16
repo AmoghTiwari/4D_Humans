@@ -17,34 +17,45 @@ for subject in $subjects; do
             echo Processing: $vid_fp
             echo 
             vid_fbn=${vid_fp/.avi//}
-            # echo $vid_fbn
+            echo vid_fbn: $vid_fbn
             vid_bn=(${vid_fbn//\// })
-            # echo ${vid_bn[-1]}
+            vid_bn=${vid_bn[-1]}
+            echo vid_bn: $vid_bn
+            echo 
 
             ##### FFMPEG BLOCK #####
             mkdir $vid_fbn
-            which python
             conda activate mps_env
-            which python
-            curr_dt=$(date)
-            echo "Running ffmpeg, start time: $curr_dt"
+            ffmpeg_start_dt=$(date)
+            echo "Running ffmpeg, start time: $ffmpeg_start_dt"
             ffmpeg -i $vid_fp -r 30000/1001 -f image2 -v error $vid_fbn/%06d.jpg
-            curr_dt=$(date)
-            echo "Finished ffmpeg, end time: $curr_dt"
-            echo Processed $(ls $vid_fbn | wc -l) frames
+            ffmpeg_end_dt=$(date)
+            echo "Finished ffmpeg, end time: $ffmpeg_end_dt"
+            num_frames=$(ls $vid_fbn | wc -l)
+            echo "Processed $num_frames frames"
             echo
             conda deactivate
             ##### FFMPEG BLOCK #####
             
-            curr_dt=$(date)
-            echo "Running inference, start time: $curr_dt"
-            python demo_w_pkl.py --img_folder $vid_fbn --out_folder outputs/mpi_inf_3dhp/$subject/$seq_num/${vid_bn[-1]} --batch_size=48 --save_pkl
-            curr_dt=$(date)
-            echo "Finished inference, start time: $curr_dt"
+            inference_start_dt=$(date)
+            echo "Running inference, start time: $inference_start_dt"
+            python demo_w_pkl.py --img_folder $vid_fbn --out_folder outputs/mpi_inf_3dhp/$subject/$seq_num/$vid_bn --batch_size=48 --save_pkl
+            inference_end_dt=$(date)
+            echo "Finished inference, start time: $inference_end_dt"
             echo Processed $(ls $vid_fbn | wc -l) frames
             echo
             echo "Removing $vid_fbn"
             rm -r $vid_fbn
+
+            echo "########## ##########"
+            echo "STATISTICS"
+            echo "########## ##########"
+            echo "ffmpeg start time: $ffmpeg_start_dt"
+            echo "ffmpeg end time: $ffmpeg_end_dt"
+            echo "inference start time: $inference_start_dt"
+            echo "inference start time: $inference_end_dt"
+            echo Processed $num_frames frames
+            echo
             exit 0
         done
     done
