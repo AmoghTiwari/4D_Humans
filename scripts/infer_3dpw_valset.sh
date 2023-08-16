@@ -1,5 +1,5 @@
 img_dir="/data/groot/Datasets/3DPW_Dataset/imageFiles"
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=1
 
 eval "$(conda shell.bash hook)"
 which conda
