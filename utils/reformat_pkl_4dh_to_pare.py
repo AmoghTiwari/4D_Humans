@@ -9,6 +9,8 @@ def reformat_pkl_4dh_to_pare(_4dh_pkl):
     pare_fmt_pkl = {}
     pare_fmt_pkl['pred_pose'] = np.concatenate((_4dh_pkl['pred_smpl_params']['body_pose'].cpu().numpy(), _4dh_pkl['pred_smpl_params']['global_orient'].cpu().numpy()), axis=1)
     pare_fmt_pkl['pred_cam'] = _4dh_pkl['pred_cam'].cpu().numpy()
+    pare_fmt_pkl['pred_cam_t'] = _4dh_pkl['pred_cam_t'].cpu().numpy()
+
     return pare_fmt_pkl
 
 if __name__ == "__main__":
