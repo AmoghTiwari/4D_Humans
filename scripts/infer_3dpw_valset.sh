@@ -11,7 +11,7 @@ for seq_name in courtyard_rangeOfMotions_01 courtyard_basketball_01 courtyard_da
 
     do
        echo "##### Processing $img_dir/$seq_name #####"
-       # python demo_w_pkl.py --img_folder $img_dir/$seq_name --out_folder outputs/3DPW/validation/$seq_name --batch_size=48 --save_pkl
+       python demo_w_pkl.py --img_folder $img_dir/$seq_name --out_folder outputs/3DPW/validation/$seq_name --batch_size=48 --save_pkl
        echo
        echo
     done
