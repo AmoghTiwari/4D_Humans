@@ -1,5 +1,5 @@
 data_base_dir="/data/groot/Datasets/mpi_inf_3dhp/"
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=1
 
 eval "$(conda shell.bash hook)"
 conda activate 4D_humans_env
@@ -13,7 +13,7 @@ echo "############################## ##############################" >> scripts/
 
 subjects=("S1")
 seq_nums=("Seq1")
-vid_names=(video_2.avi video_4.avi)
+vid_names=(video_5.avi video_6.avi video_7.avi)
 echo "Subjects: ${subjects[@]}"  >> scripts/log_infer_mpi_inf_3dhp.txt
 echo "Sequences: ${seq_nums[@]}"  >> scripts/log_infer_mpi_inf_3dhp.txt
 echo "vid_names: ${vid_names[@]}"  >> scripts/log_infer_mpi_inf_3dhp.txt
