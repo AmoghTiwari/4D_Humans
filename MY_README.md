@@ -5,3 +5,6 @@ MY_README
 #File Names and Details:
 - `demo_yolo.py`: WIP file using yolo as MPT
 - `demo_w_pkl.py`: Spin-off of `demo.py`. Has functionality for dumping pkl. And does NOT save a few other things to optimize storage
+
+# Setup on other machines
+- **ignored directories**: `data`, `outputs`, `outputs2`
