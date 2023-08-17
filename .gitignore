@@ -1,6 +1,7 @@
 # Specific - Amogh
 outputs*
 example_data*
+*log*
 # Specific
 /logs*/
 /results/
