@@ -23,8 +23,9 @@ echo "Present run started at: $run_start_dt" >> scripts/log_infer_mpii_3dhp_gnod
 echo "############################## ##############################" >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
 
 subjects=("S3")
-seq_nums=("Seq1")
-vid_names=(video_2.avi video_4.avi)
+seq_nums=("Seq2")
+# vid_names=(video_2.avi video_4.avi)
+vid_names=(video_2.avi)
 echo "Subjects: ${subjects[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
 echo "Sequences: ${seq_nums[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
 echo "vid_names: ${vid_names[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
@@ -49,7 +50,7 @@ for subject in ${subjects[@]}; do
 
             ##### FFMPEG BLOCK #####
             mkdir $vid_fbn
-            conda activate param
+            conda deactivate
             ffmpeg_start_dt=$(date)
             echo "Running ffmpeg, start time: $ffmpeg_start_dt" >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
             ffmpeg -i $vid_fp -r 30000/1001 -f image2 -v error $vid_fbn/%06d.jpg
@@ -58,7 +59,7 @@ for subject in ${subjects[@]}; do
             num_frames=$(ls $vid_fbn | wc -l)
             echo "Processed $num_frames frames" >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
             echo >> scripts/log_infer_mpii_3dhp_gnode66_g1.txt
-            conda deactivate
+            conda activate 4D_humans_env
             ##### FFMPEG BLOCK #####
             
             inference_start_dt=$(date)
