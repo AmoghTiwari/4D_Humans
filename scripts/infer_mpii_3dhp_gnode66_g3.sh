@@ -25,7 +25,7 @@ echo "############################## ##############################" >> scripts/
 subjects=("S3")
 seq_nums=("Seq2")
 # vid_names=(video_7.avi video_8.avi)
-vid_names=(video_7.avi)
+vid_names=(video_8.avi)
 echo "Subjects: ${subjects[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g3.txt
 echo "Sequences: ${seq_nums[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g3.txt
 echo "vid_names: ${vid_names[@]}"  >> scripts/log_infer_mpii_3dhp_gnode66_g3.txt
