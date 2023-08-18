@@ -24,8 +24,9 @@ echo "Present run started at: $run_start_dt" >> scripts/log_infer_mpii_3dhp_gnod
 echo "############################## ##############################" >> scripts/log_infer_mpii_3dhp_gnode65_g3.txt
 
 subjects=("S2")
-seq_nums=("Seq1")
-vid_names=(video_7.avi video_8.avi)
+seq_nums=("Seq2")
+# vid_names=(video_7.avi video_8.avi)
+vid_names=(video_7.avi)
 echo "Subjects: ${subjects[@]}"  >> scripts/log_infer_mpii_3dhp_gnode65_g3.txt
 echo "Sequences: ${seq_nums[@]}"  >> scripts/log_infer_mpii_3dhp_gnode65_g3.txt
 echo "vid_names: ${vid_names[@]}"  >> scripts/log_infer_mpii_3dhp_gnode65_g3.txt
