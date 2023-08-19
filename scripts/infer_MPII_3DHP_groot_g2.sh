@@ -6,7 +6,7 @@ machine_name="groot"
 gpu_nums=(2)
 subjects=(S1)
 seq_nums=(Seq2)
-vid_names=(video_0.avi video_8.avi)
+vid_names=(video_5.avi video_6.avi)
 
 if [[ "$machine_name" == "groot" ]]; then
     data_base_dir=/data/groot/Datasets/$dataset_name/
