@@ -4,7 +4,7 @@
 dataset_name="MPII_3DHP"
 machine_name="gnode66"
 gpu_nums=(1)
-subjects=(S4)
+subjects=(S5)
 seq_nums=(Seq2)
 vid_names=(video_2.avi video_4.avi)
 
