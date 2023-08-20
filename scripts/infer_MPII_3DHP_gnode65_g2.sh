@@ -4,9 +4,9 @@
 dataset_name="MPII_3DHP"
 machine_name="gnode65"
 gpu_nums=(2)
-subjects=(S7)
+subjects=(S8)
 seq_nums=(Seq1)
-vid_names=(video_5.avi video_6.avi)
+vid_names=(video_7.avi)
 
 if [[ "$machine_name" == "groot" ]]; then
     data_base_dir=/data/groot/Datasets/$dataset_name/
