@@ -86,7 +86,7 @@ for subject in ${subjects[@]}; do
             ########## LOGGER BLOCK ##########
 
             ########## FFMPEG BLOCK ##########
-            mkdir $vid_fbn
+            # mkdir $vid_fbn
             echo "Created dir $vid_fbn">> $log_fp
             conda deactivate
             echo "Deactivated conda env for ffmpeg">> $log_fp
@@ -111,7 +111,7 @@ for subject in ${subjects[@]}; do
             echo Processed $(ls $vid_fbn | wc -l) frames >> $log_fp
             echo >> $log_fp
             echo "Removing $vid_fbn" >> $log_fp
-            rm -r $vid_fbn
+            # rm -r $vid_fbn
             ########## INFERENCE BLOCK ##########
 
             ########## LOGGER BLOCK ##########
